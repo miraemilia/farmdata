@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/measurements/
+Content-Type: application/json
+
+{
+    "farm": "Noora's farm",
+    "type": "rainFall",
+    "value": 3
+}
