@@ -1,11 +1,28 @@
 import React from 'react'
+import DataRow from './DataRow'
 
-const ViewData = () => {
+import { Table } from 'react-bootstrap'
+
+const ViewData = ({ data }) => {
 
   return (
-    <div>
-      data will be shown here
-    </div>
+    <>
+      <Table striped bordered hover size="sm">
+        <thead>
+          <tr>
+            <th>Farm</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map(d =>
+            <DataRow key={d.id} d={d} />
+          )}
+        </tbody>
+      </Table>
+    </>
   )
 
 }

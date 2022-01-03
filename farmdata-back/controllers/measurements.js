@@ -10,9 +10,7 @@ measurementRouter.get('/', async (request, response) => {
 measurementRouter.post('/', async (request, response) => {
     const farmName = request.body.farm
     const farm = await Farm.findOne({name: farmName})
-    console.log(farm)
     const farmId = farm._id
-    console.log(farmId)
 
     //create measurement from request and save to database
     const measurement = new Measurement({
