@@ -27,7 +27,11 @@ measurementRouter.post('/', async (request, response) => {
     const updatedMeasurements = farm.measurements.concat(savedMeasurement._id)
     await Farm.findByIdAndUpdate(farm._id, {measurements: updatedMeasurements})
 
+})
 
+measurementRouter.post('/reset', async (request, response) => {
+    await Measurement.deleteMany({})
+    response.status(204).end()
 })
 
 module.exports = measurementRouter

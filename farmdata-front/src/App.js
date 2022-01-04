@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
+import Header from './components/Header'
 import Togglable from './components/Togglable'
 import AddData from './components/AddData'
 import ViewData from './components/ViewData'
 
 import dataService from './services/data'
-
-import { Button, Row, Col } from 'react-bootstrap'
 
 const App = () => {
 
@@ -26,6 +25,20 @@ const App = () => {
     })
   }, [])
 
+  const fetchData = () => {
+    console.log('fetching data...')
+  }
+
+  const resetDatabase = () => {
+    if (window.confirm('Are you sure you want to reset the database? The database will be emptied.')) {
+      console.log('resetting database...')
+      dataService.resetMeasurements().then(response => {
+        console.log(response)
+      })
+      setData([])
+    }
+  }
+
   const createMeasurement = (measurement) => {
     console.log(measurement)
     dataService
@@ -43,7 +56,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <Header/>
+      <Header fetchData={fetchData} resetDatabase={resetDatabase}/>
       <Togglable openButtonLabel='Add data' closeButtonLabel='Hide form'>
         <AddData farms={farms} createMeasurement={createMeasurement}/>
       </Togglable>
@@ -54,20 +67,6 @@ const App = () => {
       <br />
     </div>
 
-  )
-}
-
-const Header = () => {
-  return (
-    <div className="container">
-      <Row>
-        <Col><h2>Farm data</h2></Col>
-        <Col>
-          <Button variant="outline-secondary" size="sm">Fetch data</Button>
-          <Button variant="outline-secondary" size="sm">Empty database</Button>
-        </Col>
-      </Row>
-    </div>
   )
 }
 

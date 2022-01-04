@@ -17,4 +17,9 @@ const getFarms = () => {
   return request.then(response => response.data)
 }
 
-export default { getAll, getFarms, postMeasurement }
+const resetMeasurements = () => {
+  const request = axios.post(baseUrlM + '/reset')
+  return request.then(response => response.data)
+}
+
+export default { getAll, getFarms, postMeasurement, resetMeasurements }
