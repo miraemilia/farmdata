@@ -68,7 +68,7 @@ const AddData = ({ farms, createMeasurement }) => {
         </Form.Group>
 
         <br />
-        <Button type="submit">Submit</Button>
+        <Button id="submit-button" type="submit">Submit</Button>
 
       </Form>
     </div>

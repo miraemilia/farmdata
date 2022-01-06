@@ -57,11 +57,19 @@ const App = () => {
   return (
     <div className="container">
       <Header fetchData={fetchData} resetDatabase={resetDatabase}/>
-      <Togglable openButtonLabel='Add data' closeButtonLabel='Hide form'>
+      <Togglable
+        openButtonLabel='Add data'
+        openButtonId='addData-button'
+        closeButtonLabel='Hide form'
+        closeButtonId='hideForm-button'>
         <AddData farms={farms} createMeasurement={createMeasurement}/>
       </Togglable>
       <br />
-      <Togglable openButtonLabel='View data' closeButtonLabel='Hide data'>
+      <Togglable
+        openButtonLabel='View data'
+        openButtonId='viewData-button'
+        closeButtonLabel='Hide data'
+        closeButtonId='hideData-button'>
         <ViewData data={data}/>
       </Togglable>
       <br />
