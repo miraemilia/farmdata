@@ -1,3 +1,5 @@
+const Measurement = require('../models/measurement')
+
 const farms = [
   {
     _id: '5a422a851b54a676234d17f4',
@@ -36,4 +38,24 @@ const initialData = [
   },
 ]
 
-module.exports = { farms, initialData }
+const newData = [
+  {
+    farm: 'Friman Metsola collective',
+    date: new Date('2022-01-05T16:14:56.486+00:00'),
+    type: 'pH',
+    value: 10
+  },
+  {
+    farm: 'PartialTech Research Farm',
+    date: new Date('2022-01-02T16:14:56.486+00:00'),
+    type: 'rainFall',
+    value: 194
+  }
+]
+
+const measurementsInDb = async () => {
+  const measurements = await Measurement.find({})
+  return measurements.map(m => m.toJSON)
+}
+
+module.exports = { farms, initialData, newData, measurementsInDb }
