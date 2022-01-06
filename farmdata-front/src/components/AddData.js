@@ -34,11 +34,11 @@ const AddData = ({ farms, createMeasurement }) => {
 
   return (
     <div>
-      <Form onSubmit={addMeasurement}>
+      <Form id='addDataForm' onSubmit={addMeasurement}>
 
         <Form.Group>
           <Form.Label>Farm</Form.Label>
-          <Form.Select value={selectedFarm} onChange={handleFarmChange}>
+          <Form.Select id='selectFarm' value={selectedFarm} onChange={handleFarmChange}>
             <option disabled />
             {farms.map(farm =>
               <option key={farm.name} value={farm.name}>{farm.name}</option>
@@ -48,7 +48,7 @@ const AddData = ({ farms, createMeasurement }) => {
 
         <Form.Group>
           <Form.Label>Metric type</Form.Label>
-          <Form.Select value={selectedType} onChange={handleTypeChange}>
+          <Form.Select id='selectType' value={selectedType} onChange={handleTypeChange}>
             <option disabled />
             <option value="pH">pH</option>
             <option value="rainFall">Rainfall</option>
@@ -59,6 +59,7 @@ const AddData = ({ farms, createMeasurement }) => {
         <Form.Group>
           <Form.Label>Metric value</Form.Label>
           <Form.Control
+            id='metricValue'
             required
             type="number"
             value={newValue}
