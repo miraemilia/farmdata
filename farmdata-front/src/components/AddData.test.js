@@ -38,11 +38,16 @@ test('createMeasurement is called with correct parameters', () => {
 
   const form = component.container.querySelector('#addDataForm')
   const farm = component.container.querySelector('#selectFarm')
+  const date = component.container.querySelector('#selectDate')
   const metricType = component.container.querySelector('#selectType')
   const metricValue = component.container.querySelector('#metricValue')
 
   fireEvent.change(farm, {
     target: { value: 'Noora\'s farm' }
+  })
+
+  fireEvent.change(date, {
+    target: { value: '2022-01-07T12:15:55.118Z' }
   })
 
   fireEvent.change(metricType, {

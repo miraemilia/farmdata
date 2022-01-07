@@ -5,11 +5,16 @@ import { Form, Button } from 'react-bootstrap'
 const AddData = ({ farms, createMeasurement }) => {
 
   const [selectedFarm, setSelectedFarm] = useState('')
+  const [selectedDate, setSelectedDate] = useState('')
   const [selectedType, setSelectedType] = useState('')
   const [newValue, setValue] = useState(0)
 
   const handleFarmChange = (event) => {
     setSelectedFarm(event.target.value)
+  }
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value)
   }
 
   const handleTypeChange = (event) => {
@@ -24,10 +29,12 @@ const AddData = ({ farms, createMeasurement }) => {
     event.preventDefault()
     createMeasurement({
       farm: selectedFarm,
+      date: selectedDate,
       type: selectedType,
       value: newValue
     })
     setSelectedFarm('')
+    setSelectedDate('')
     setSelectedType('')
     setValue(0)
   }
@@ -44,6 +51,11 @@ const AddData = ({ farms, createMeasurement }) => {
               <option key={farm.name} value={farm.name}>{farm.name}</option>
             )}
           </Form.Select>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Date</Form.Label>
+          <Form.Control id='selectDate' type='date' value={selectedDate} onChange={handleDateChange} />
         </Form.Group>
 
         <Form.Group>

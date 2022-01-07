@@ -15,7 +15,7 @@ measurementRouter.post('/', async (request, response) => {
   //create measurement from request and save to database
   const measurement = new Measurement({
     farm: farmId,
-    date: Date.now(),
+    date: request.body.date || Date.now(),
     type: request.body.type,
     value: request.body.value
   })

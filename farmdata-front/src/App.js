@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     dataService.getAll().then(measurements => {
-      const sortedData = measurements.sort((a, b) => b.date - a.date)
+      const sortedData = measurements.sort((a, b) => new Date(b.date) - new Date(a.date))
       setData(sortedData)
     })
   }, [])
@@ -50,7 +50,9 @@ const App = () => {
           farm: { id: response.data.farm, name: measurement.farm }
         }
         console.log(newData)
-        setData(data.concat(newData))
+        const allData = data.concat(newData)
+        const sortedData = allData.sort((a, b) => new Date(b.date) - new Date(a.date))
+        setData(sortedData)
       })
   }
 

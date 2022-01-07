@@ -13,6 +13,7 @@ describe('Farm data', function() {
   it('added measurement is shown on "View data"', function() {
     cy.get('#addData-button').click()
     cy.get('#selectFarm').select('PartialTech Research Farm')
+    cy.get('#selectDate').type('2022-01-07')
     cy.get('#selectType').select('rainFall')
     cy.get('#metricValue')
       .first()
