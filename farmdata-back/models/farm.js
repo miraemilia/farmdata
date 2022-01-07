@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
 const farmSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
   measurements: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -3,6 +3,6 @@ Content-Type: application/json
 
 {
     "farm": "Noora's farm",
-    "type": "temperature",
-    "value": -5
+    "type": "rainFall",
+    "value": 10
 }
