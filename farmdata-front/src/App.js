@@ -17,7 +17,7 @@ const App = () => {
 
   useEffect(() => {
     dataService.getAll().then(measurements => {
-      const sortedData = measurements.sort((a, b) => new Date(b.date) - new Date(a.date))
+      const sortedData = measurements.sort((a, b) => new Date(a.date) - new Date(b.date))
       setData(sortedData)
     })
   }, [])
@@ -63,7 +63,7 @@ const App = () => {
       }
       console.log(newData)
       const allData = data.concat(newData)
-      const sortedData = allData.sort((a, b) => new Date(b.date) - new Date(a.date))
+      const sortedData = allData.sort((a, b) => new Date(a.date) - new Date(b.date))
       setData(sortedData)
       setMessage('New data added')
       setMessageColor('green')
@@ -97,7 +97,7 @@ const App = () => {
         openButtonId='viewData-button'
         closeButtonLabel='Hide data'
         closeButtonId='hideData-button'>
-        <ViewData data={data}/>
+        <ViewData farms={farms} data={data}/>
       </Togglable>
       <br />
     </div>
