@@ -10,7 +10,7 @@ describe('Farm data', function() {
     cy.contains('Farm data')
   })
 
-  it('added measurement is shown on "View data"', function() {
+  it('success notification is shown after successful POST request', function() {
     cy.get('#addData-button').click()
     cy.get('#selectFarm').select('PartialTech Research Farm')
     cy.get('#selectDate').type('2022-01-07')
@@ -21,7 +21,6 @@ describe('Farm data', function() {
       .type(57)
     cy.get('#submit-button').click()
 
-    cy.get('#viewData-button').click()
-    cy.contains('PartialTech Research Farm')
+    cy.get('#notification').contains('New data added')
   })
 })
