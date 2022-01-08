@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import DataTable from './DataTable'
 
-import { Form } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 
 const ViewData = ({ farms, data }) => {
 
   const [ farmFilter, setFarmFilter ] = useState('')
   const [ monthFilter, setMonthFilter ] = useState('')
+  const [ pHData, setPHData ] = useState([])
+  const [ rainFallData, setRainFallData ] = useState([])
+  const [ temperatureData, setTemperatureData ] = useState([])
   //const [ showPH, setShowPH ] = useState(true)
   //const [ showRainFall, setShowRainFall ] = useState(true)
   //const [ showTemperature, setShowTemperature ] = useState(true)
@@ -19,23 +22,24 @@ const ViewData = ({ farms, data }) => {
     setMonthFilter(event.target.value)
   }
 
-  //const farmData = data.filter(d => d.farm.name === farmFilter)
   const monthlyFarmFilter = (d) => {
     const monthYear = d.date.substr(0,7)
-    if (monthFilter === '') {
-      return d.farm.name === farmFilter
-    }
     return d.farm.name === farmFilter && monthYear === monthFilter
   }
-  const monthlyFarmData = data.filter(d => monthlyFarmFilter(d))
-  const pH = monthlyFarmData.filter(d => d.type === 'pH')
-  const rainFall = monthlyFarmData.filter(d => d.type === 'rainFall')
-  const temperature = monthlyFarmData.filter(d => d.type === 'temperature')
+
+  const filterAndShowData = () => {
+    event.preventDefault()
+    const monthlyFarmData = data.filter(d => monthlyFarmFilter(d))
+    setPHData(monthlyFarmData.filter(d => d.type === 'pH'))
+    setRainFallData(monthlyFarmData.filter(d => d.type === 'rainFall'))
+    setTemperatureData(monthlyFarmData.filter(d => d.type === 'temperature'))
+  }
 
   return (
     <div>
       <br />
-      <Form>
+      <Form id='filterDataForm' onSubmit={filterAndShowData}>
+
         <Form.Group>
           <Form.Label>Set Farm</Form.Label>
           <Form.Select id='selectFarmToFilter' value={farmFilter} onChange={handleFarmFilter}>
@@ -45,21 +49,21 @@ const ViewData = ({ farms, data }) => {
             )}
           </Form.Select>
         </Form.Group>
-      </Form>
 
-      <Form>
         <Form.Group>
           <Form.Label>Set month</Form.Label>
           <Form.Control id='selectMonthToFilter' value={monthFilter} type='month' onChange={handleMonthFilter}></Form.Control>
         </Form.Group>
+
+        <Button id='filter-button' type='submit' >Filter</Button>
       </Form>
 
       <h3>pH</h3>
-      <DataTable id='pHTable' filteredData={pH}/>
+      <DataTable id='pHTable' filteredData={pHData}/>
       <h3>Rainfall</h3>
-      <DataTable id='rainFallTable' filteredData={rainFall}/>
+      <DataTable id='rainFallTable' filteredData={rainFallData}/>
       <h3>Temperature</h3>
-      <DataTable id='temperatureTable' filteredData={temperature}/>
+      <DataTable id='temperatureTable' filteredData={temperatureData}/>
     </div>
   )
 
