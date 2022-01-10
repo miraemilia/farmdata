@@ -7,10 +7,20 @@ const baseUrlF = '/api/farms'
 //  return request.then(response => response.data)
 //}
 
-const getMonthlyFarmData = (farmId, type, monthYear) => {
-  const month = Number(monthYear.substr(5,2))-1
-  const year = monthYear.substr(0,4)
+const getMonthlyFarmData = (farmId, type, year, month) => {
   const url = baseUrlM+'/'+farmId+'/'+type+'/'+year+'/'+month
+  const request = axios.get(url)
+  return request.then(response => response.data)
+}
+
+const getMonthlyFarmMin = (farmId, type, year, month) => {
+  const url = baseUrlM+'/min/'+farmId+'/'+type+'/'+year+'/'+month
+  const request = axios.get(url)
+  return request.then(response => response.data)
+}
+
+const getMonthlyFarmMax = (farmId, type, year, month) => {
+  const url = baseUrlM+'/max/'+farmId+'/'+type+'/'+year+'/'+month
   const request = axios.get(url)
   return request.then(response => response.data)
 }
@@ -35,4 +45,12 @@ const fetchData = () => {
   return request.then(response => response.data)
 }
 
-export default { getMonthlyFarmData, getFarms, postMeasurement, resetMeasurements, fetchData }
+export default {
+  getMonthlyFarmData,
+  getMonthlyFarmMin,
+  getMonthlyFarmMax,
+  getFarms,
+  postMeasurement,
+  resetMeasurements,
+  fetchData
+}

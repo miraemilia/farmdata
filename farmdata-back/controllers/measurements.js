@@ -4,6 +4,16 @@ const Farm = require('../models/farm')
 const fs = require('fs')
 const csv = require('csv-parser')
 
+const calculateStartDate = (year, month) => {
+  console.log(year, month)
+  return new Date(year, month, 1, 3, 0, 0, 0)
+}
+
+const calculateEndDate = (year, month) => {
+  console.log(year, month)
+  return new Date(year, month +1, 0, 26, 59, 59, 999)
+}
+
 const postMeasurement = async (request) => {
   const farmName = request.body.farm
   const farm = await Farm.findOne({name: farmName})
@@ -32,9 +42,9 @@ measurementRouter.get('/:farmId/:type/:year/:month', async (request, response) =
   const year = Number(request.params.year)
   const month = Number(request.params.month)
   console.log(year, month)
-  const startDate = new Date(year, month, 1, 3, 0, 0, 0)
+  const startDate = calculateStartDate(year, month)
   console.log(startDate)
-  const endDate = new Date(year, month +1, 0, 26, 59, 59, 999)
+  const endDate = calculateEndDate(year, month)
   console.log(endDate)
 
   const measurements = await Measurement
@@ -48,6 +58,42 @@ measurementRouter.get('/:farmId/:type/:year/:month', async (request, response) =
     })
     .populate('farm', { name: 1 })
   response.json(measurements.map(m => m.toJSON()))
+})
+
+measurementRouter.get('/min/:farmId/:type/:year/:month', async (request, response) => {
+  const startDate = calculateStartDate(Number(request.params.year), Number(request.params.month))
+  const endDate = calculateEndDate(Number(request.params.year), Number(request.params.month))
+  const min = await Measurement
+    .find({ 
+      farm: request.params.farmId,
+      type: request.params.type,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
+    .sort({value: 1})
+    .limit(1)
+  console.log(min)
+  response.json(min)
+})
+
+measurementRouter.get('/max/:farmId/:type/:year/:month', async (request, response) => {
+  const startDate = calculateStartDate(Number(request.params.year), Number(request.params.month))
+  const endDate = calculateEndDate(Number(request.params.year), Number(request.params.month))
+  const max = await Measurement
+    .find({ 
+      farm: request.params.farmId,
+      type: request.params.type,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
+    .sort({value: -1})
+    .limit(1)
+  console.log(max)
+  response.json(max)
 })
 
 measurementRouter.post('/', async (request, response) => {

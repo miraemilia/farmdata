@@ -11,9 +11,8 @@ const ViewData = ({ farms }) => {
   const [ monthFilter, setMonthFilter ] = useState('')
   const [ typeFilter, setTypeFilter ] = useState('')
   const [ data, setData ] = useState([])
-  //const [ showPH, setShowPH ] = useState(true)
-  //const [ showRainFall, setShowRainFall ] = useState(true)
-  //const [ showTemperature, setShowTemperature ] = useState(true)
+  const [ max, setMax ] = useState([])
+  const [ min, setMin ] = useState([])
 
   const handleFarmFilter = (event) => {
     setFarmFilter(event.target.value)
@@ -29,9 +28,22 @@ const ViewData = ({ farms }) => {
 
   const filterAndShowData = async (event) => {
     event.preventDefault()
-    const response = await dataService.getMonthlyFarmData(farmFilter, typeFilter, monthFilter)
+
+    const month = Number(monthFilter.substring(5,7))-1
+    console.log(month)
+    const year = monthFilter.substring(0,4)
+    console.log(year)
+
+    const response = await dataService.getMonthlyFarmData(farmFilter, typeFilter, year, month)
     const sortedData = await response.sort((a, b) => new Date(a.date) - new Date(b.date))
     setData(sortedData)
+
+    const min = await dataService.getMonthlyFarmMin(farmFilter, typeFilter, year, month)
+    console.log(min)
+    setMin(min)
+    const max = await dataService.getMonthlyFarmMax(farmFilter, typeFilter, year, month)
+    console.log(max)
+    setMax(max)
   }
 
   return (
@@ -64,9 +76,15 @@ const ViewData = ({ farms }) => {
           <Form.Control id='selectMonthToFilter' value={monthFilter} type='month' onChange={handleMonthFilter}></Form.Control>
         </Form.Group>
 
+        <br />
         <Button id='filter-button' type='submit' >Filter</Button>
+
       </Form>
 
+      <br />
+      min: {min.map(min => min.value)}
+      <br />
+      max: {max.map(max => max.value)}
       <DataTable id='table' filteredData={data}/>
     </div>
   )
