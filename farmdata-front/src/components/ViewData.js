@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import DataTable from './DataTable'
 
+import dataService from '../services/data'
+
 import { Form, Button } from 'react-bootstrap'
 
-const ViewData = ({ farms, data }) => {
+const ViewData = ({ farms }) => {
 
   const [ farmFilter, setFarmFilter ] = useState('')
   const [ monthFilter, setMonthFilter ] = useState('')
-  const [ pHData, setPHData ] = useState([])
-  const [ rainFallData, setRainFallData ] = useState([])
-  const [ temperatureData, setTemperatureData ] = useState([])
+  const [ typeFilter, setTypeFilter ] = useState('')
+  const [ data, setData ] = useState([])
   //const [ showPH, setShowPH ] = useState(true)
   //const [ showRainFall, setShowRainFall ] = useState(true)
   //const [ showTemperature, setShowTemperature ] = useState(true)
@@ -18,21 +19,19 @@ const ViewData = ({ farms, data }) => {
     setFarmFilter(event.target.value)
   }
 
+  const handleTypeFilter = (event) => {
+    setTypeFilter(event.target.value)
+  }
+
   const handleMonthFilter = (event) => {
     setMonthFilter(event.target.value)
   }
 
-  const monthlyFarmFilter = (d) => {
-    const monthYear = d.date.substr(0,7)
-    return d.farm.name === farmFilter && monthYear === monthFilter
-  }
-
-  const filterAndShowData = () => {
+  const filterAndShowData = async (event) => {
     event.preventDefault()
-    const monthlyFarmData = data.filter(d => monthlyFarmFilter(d))
-    setPHData(monthlyFarmData.filter(d => d.type === 'pH'))
-    setRainFallData(monthlyFarmData.filter(d => d.type === 'rainFall'))
-    setTemperatureData(monthlyFarmData.filter(d => d.type === 'temperature'))
+    const response = await dataService.getMonthlyFarmData(farmFilter, typeFilter, monthFilter)
+    const sortedData = await response.sort((a, b) => new Date(a.date) - new Date(b.date))
+    setData(sortedData)
   }
 
   return (
@@ -45,8 +44,18 @@ const ViewData = ({ farms, data }) => {
           <Form.Select id='selectFarmToFilter' value={farmFilter} onChange={handleFarmFilter}>
             <option disabled/>
             {farms.map(farm =>
-              <option key={farm.name} value={farm.name}>{farm.name}</option>
+              <option key={farm.name} value={farm.id}>{farm.name}</option>
             )}
+          </Form.Select>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Set type</Form.Label>
+          <Form.Select id='selectTypeToFilter' value={typeFilter} onChange={handleTypeFilter}>
+            <option disabled/>
+            <option value="pH">pH</option>
+            <option value="rainFall">Rainfall</option>
+            <option value="temperature">Temperature</option>
           </Form.Select>
         </Form.Group>
 
@@ -58,12 +67,7 @@ const ViewData = ({ farms, data }) => {
         <Button id='filter-button' type='submit' >Filter</Button>
       </Form>
 
-      <h3>pH</h3>
-      <DataTable id='pHTable' filteredData={pHData}/>
-      <h3>Rainfall</h3>
-      <DataTable id='rainFallTable' filteredData={rainFallData}/>
-      <h3>Temperature</h3>
-      <DataTable id='temperatureTable' filteredData={temperatureData}/>
+      <DataTable id='table' filteredData={data}/>
     </div>
   )
 

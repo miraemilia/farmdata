@@ -2,8 +2,16 @@ import axios from 'axios'
 const baseUrlM = '/api/measurements'
 const baseUrlF = '/api/farms'
 
-const getAll = () => {
-  const request = axios.get(baseUrlM)
+//const getAll = () => {
+//  const request = axios.get(baseUrlM)
+//  return request.then(response => response.data)
+//}
+
+const getMonthlyFarmData = (farmId, type, monthYear) => {
+  const month = Number(monthYear.substr(5,2))-1
+  const year = monthYear.substr(0,4)
+  const url = baseUrlM+'/'+farmId+'/'+type+'/'+year+'/'+month
+  const request = axios.get(url)
   return request.then(response => response.data)
 }
 
@@ -22,4 +30,9 @@ const resetMeasurements = () => {
   return request.then(response => response.data)
 }
 
-export default { getAll, getFarms, postMeasurement, resetMeasurements }
+const fetchData = () => {
+  const request = axios.post(baseUrlM + '/fetch')
+  return request.then(response => response.data)
+}
+
+export default { getMonthlyFarmData, getFarms, postMeasurement, resetMeasurements, fetchData }
