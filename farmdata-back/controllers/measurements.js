@@ -96,6 +96,24 @@ measurementRouter.get('/max/:farmId/:type/:year/:month', async (request, respons
   response.json(max)
 })
 
+measurementRouter.get('/aver/:farmId/:type/:year/:month', async (request, response) => {
+  const startDate = calculateStartDate(Number(request.params.year), Number(request.params.month))
+  const endDate = calculateEndDate(Number(request.params.year), Number(request.params.month))
+  const measurements = await Measurement
+    .find({ 
+      farm: request.params.farmId,
+      type: request.params.type,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
+  const values = measurements.map(m => m.value)
+  const aver = values.reduce((a, b) => a +b) / measurements.length
+  console.log(aver)
+  response.json(aver)
+})
+
 measurementRouter.post('/', async (request, response) => {
   
   const savedMeasurement = await postMeasurement(request)

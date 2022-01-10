@@ -25,6 +25,12 @@ const getMonthlyFarmMax = (farmId, type, year, month) => {
   return request.then(response => response.data)
 }
 
+const getMonthlyFarmAverage = (farmId, type, year, month) => {
+  const url = baseUrlM+'/aver/'+farmId+'/'+type+'/'+year+'/'+month
+  const request = axios.get(url)
+  return request.then(response => response.data)
+}
+
 const postMeasurement = newMeasurement => {
   console.log('post called')
   return axios.post(baseUrlM, newMeasurement)
@@ -49,6 +55,7 @@ export default {
   getMonthlyFarmData,
   getMonthlyFarmMin,
   getMonthlyFarmMax,
+  getMonthlyFarmAverage,
   getFarms,
   postMeasurement,
   resetMeasurements,
