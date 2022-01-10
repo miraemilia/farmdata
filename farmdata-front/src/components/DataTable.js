@@ -12,12 +12,12 @@ const DataTable = ({ filteredData, unit }) => {
           <tr>
             <th>Farm</th>
             <th>Date</th>
-            <th>Value</th>
+            <th>Value ({unit})</th>
           </tr>
         </thead>
         <tbody>
           {filteredData.map(d =>
-            <DataRow key={d.id} d={d} unit={unit} s/>
+            <DataRow key={d.id} d={d} />
           )}
         </tbody>
       </Table>

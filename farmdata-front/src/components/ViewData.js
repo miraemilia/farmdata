@@ -5,6 +5,8 @@ import dataService from '../services/data'
 
 import { Form, Button } from 'react-bootstrap'
 
+import dateFnsFormat from 'date-fns/format'
+
 const ViewData = ({ farms }) => {
 
   const [ farmFilter, setFarmFilter ] = useState('')
@@ -90,14 +92,15 @@ const ViewData = ({ farms }) => {
         </Form.Group>
 
         <br />
-        <Button id='filter-button' type='submit' >Filter</Button>
+        <Button id='filter-button' variant='outline-primary' type='submit' >Filter</Button>
 
       </Form>
 
       <br />
-      <b>Minimum value: </b>{min.map(m => m.value.toFixed(1))} {unit}
+      <h4>{data.length > 0 ? data[0].farm.name : ''}, {data.length > 0 ? dateFnsFormat(new Date(data[0].date), 'MMMM yyyy') : ''}</h4>
+      <b>Minimum value: </b>{min.length > 0 ? min[0].value.toFixed(1) : ''} {unit}
       <br />
-      <b>Maximum value: </b>{max.map(m => m.value.toFixed(1))} {unit}
+      <b>Maximum value: </b>{max.length > 0 ? max[0].value.toFixed(1) : ''} {unit}
       <br />
       <b>Average: </b>{average} {unit}
       <DataTable id='table' filteredData={data} unit={unit}/>
