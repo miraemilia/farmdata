@@ -1,7 +1,7 @@
 import React from 'react'
 import dateFnsFormat from 'date-fns/format'
 
-const DataRow = ({ d }) => {
+const DataRow = ({ d, unit }) => {
 
   const date = new Date(d.date)
 
@@ -14,7 +14,7 @@ const DataRow = ({ d }) => {
       <tr>
         <td>{d.farm.name}</td>
         <td>{dateFnsFormat(date, 'dd.MM.yyyy HH:mm')}</td>
-        <td>{d.value}</td>
+        <td>{d.value} {unit}</td>
       </tr>
     </>
   )

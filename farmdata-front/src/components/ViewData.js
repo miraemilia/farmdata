@@ -10,6 +10,7 @@ const ViewData = ({ farms }) => {
   const [ farmFilter, setFarmFilter ] = useState('')
   const [ monthFilter, setMonthFilter ] = useState('')
   const [ typeFilter, setTypeFilter ] = useState('')
+  const [ unit, setUnit ] = useState('')
   const [ data, setData ] = useState([])
   const [ max, setMax ] = useState([])
   const [ min, setMin ] = useState([])
@@ -47,7 +48,15 @@ const ViewData = ({ farms }) => {
     setMax(max)
     const average = await dataService.getMonthlyFarmAverage(farmFilter, typeFilter, year, month)
     console.log(average)
-    setAverage(average)
+    setAverage(average.toFixed(1))
+
+    if (typeFilter === 'pH') {
+      setUnit('pH')
+    } else if (typeFilter === 'rainFall') {
+      setUnit('mm')
+    } else if (typeFilter === 'temperature') {
+      setUnit('\u00B0'+'C')
+    }
   }
 
   return (
@@ -86,12 +95,12 @@ const ViewData = ({ farms }) => {
       </Form>
 
       <br />
-      min: {min.map(m => m.value)}
+      <b>Minimum value: </b>{min.map(m => m.value)} {unit}
       <br />
-      max: {max.map(m => m.value)}
+      <b>Maximum value: </b>{max.map(m => m.value)} {unit}
       <br />
-      average: {average.toFixed(2)}
-      <DataTable id='table' filteredData={data}/>
+      <b>Average: </b>{average} {unit}
+      <DataTable id='table' filteredData={data} unit={unit}/>
     </div>
   )
 

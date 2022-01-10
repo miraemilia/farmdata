@@ -3,7 +3,7 @@ import DataRow from './DataRow'
 
 import { Table } from 'react-bootstrap'
 
-const DataTable = ({ filteredData }) => {
+const DataTable = ({ filteredData, unit }) => {
 
   return (
     <>
@@ -17,7 +17,7 @@ const DataTable = ({ filteredData }) => {
         </thead>
         <tbody>
           {filteredData.map(d =>
-            <DataRow key={d.id} d={d} />
+            <DataRow key={d.id} d={d} unit={unit} s/>
           )}
         </tbody>
       </Table>
