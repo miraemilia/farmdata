@@ -6,12 +6,12 @@ const csv = require('csv-parser')
 
 const calculateStartDate = (year, month) => {
   console.log(year, month)
-  return new Date(year, month, 1, 3, 0, 0, 0)
+  return new Date(year, month, 1, 0, 0, 0, 0)
 }
 
 const calculateEndDate = (year, month) => {
   console.log(year, month)
-  return new Date(year, month +1, 0, 26, 59, 59, 999)
+  return new Date(year, month +1, 0, 23, 59, 59, 999)
 }
 
 const postMeasurement = async (request) => {
