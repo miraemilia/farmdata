@@ -95,9 +95,9 @@ const ViewData = ({ farms }) => {
       </Form>
 
       <br />
-      <b>Minimum value: </b>{min.map(m => m.value)} {unit}
+      <b>Minimum value: </b>{min.map(m => m.value.toFixed(1))} {unit}
       <br />
-      <b>Maximum value: </b>{max.map(m => m.value)} {unit}
+      <b>Maximum value: </b>{max.map(m => m.value.toFixed(1))} {unit}
       <br />
       <b>Average: </b>{average} {unit}
       <DataTable id='table' filteredData={data} unit={unit}/>

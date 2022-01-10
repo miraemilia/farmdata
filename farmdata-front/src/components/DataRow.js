@@ -14,7 +14,7 @@ const DataRow = ({ d, unit }) => {
       <tr>
         <td>{d.farm.name}</td>
         <td>{dateFnsFormat(date, 'dd.MM.yyyy HH:mm')}</td>
-        <td>{d.value} {unit}</td>
+        <td>{d.value.toFixed(1)} {unit}</td>
       </tr>
     </>
   )
