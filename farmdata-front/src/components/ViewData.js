@@ -18,6 +18,7 @@ const ViewData = ({ farms }) => {
   const [ max, setMax ] = useState([])
   const [ min, setMin ] = useState([])
   const [ average, setAverage ] = useState([])
+  const [ showTableNotChart, setShowTableNotChart ] = useState(true)
 
   const handleFarmFilter = (event) => {
     setFarmFilter(event.target.value)
@@ -29,6 +30,10 @@ const ViewData = ({ farms }) => {
 
   const handleMonthFilter = (event) => {
     setMonthFilter(event.target.value)
+  }
+
+  const handleTableToChart = () => {
+    setShowTableNotChart(!showTableNotChart)
   }
 
   const filterAndShowData = async (event) => {
@@ -104,8 +109,18 @@ const ViewData = ({ farms }) => {
       <b>Maximum value: </b>{max.length > 0 ? max[0].value.toFixed(1) : ''} {unit}
       <br />
       <b>Average: </b>{average} {unit}
-      <DataTable id='table' filteredData={data} unit={unit}/>
-      <DataChart filteredData={data} unit={unit}/>
+      <br />
+      <Button
+        id='tableOrChart-button'
+        variant='outline-primary'
+        onClick={handleTableToChart}
+      >
+        {showTableNotChart ? 'Show data in chart' : 'Show data in table'}
+      </Button>
+      {showTableNotChart
+        ? <DataTable id='table' filteredData={data} unit={unit}/>
+        : <DataChart filteredData={data} unit={unit}/>
+      }
     </div>
   )
 
