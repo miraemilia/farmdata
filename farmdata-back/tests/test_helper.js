@@ -13,7 +13,7 @@ const farms = [
   },
   {
     _id: '5a422a851b54a676234d17f6',
-    name: 'Organic Ossi\'s Impact That Lasts plantation',
+    name: 'Organic Ossi\'s Impact That Lasts plantase',
     measurements: []
   },
   {
