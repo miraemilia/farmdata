@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import DataTable from './DataTable'
+import DataChart from './DataChart'
 
 import dataService from '../services/data'
 
@@ -104,6 +105,7 @@ const ViewData = ({ farms }) => {
       <br />
       <b>Average: </b>{average} {unit}
       <DataTable id='table' filteredData={data} unit={unit}/>
+      <DataChart filteredData={data} unit={unit}/>
     </div>
   )
 
