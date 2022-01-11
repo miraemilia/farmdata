@@ -1,3 +1,5 @@
+# Farm data
+
 ## Project description
 
 This project is a pre-assignment for applying to Solita Dev Academy/spring 2022. The assignment was to create a web application that uses farm data that is fetched in CSV format.
@@ -11,7 +13,7 @@ This project is a pre-assignment for applying to Solita Dev Academy/spring 2022.
   - _id: String
   - farm: ObjectId
   - type: String (options: pH, temperature, rainFall)
-  - value: Number (pH: 0-14, temperature: -50-100,rainFall: 0-500)
+  - value: Number (pH: 0-14, temperature: -50-100, rainFall: 0-500)
 
 ## Technologies used:
 - Frontend: React, Bootstrap, Jest(tests)
@@ -20,7 +22,7 @@ This project is a pre-assignment for applying to Solita Dev Academy/spring 2022.
 - Database: MongoDB Atlas
 
 ## Prerequisites for running the project:
-- [Node](https://nodejs.org/en/download/) v16.13.1 with v8.1.2
+- [Node](https://nodejs.org/en/download/) (v16.13.1 with npm v8.1.2 were used for development)
 - for sending backend requests: Visual Studio Code with [VSC Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 - the project was created with macOS, other operating systems have not been tested
 
@@ -30,13 +32,10 @@ This project is a pre-assignment for applying to Solita Dev Academy/spring 2022.
 
 ## How to run the project?
 - copy the project
-- add a file named .env (see configurations)
+- add a file named .env (see Configurations)
 - terminal commands (at the root of the corresponding file)
     - Frontend: `npm start` (runs at http://localhost:3000/)
-    - Backend: `npm run dev` (development)/ `npm start (production) (runs at http://localhost:3001/)
-    - to view data in the database, visit:
-        - http://localhost:3001/api/farms 
-        - http://localhost:3001/api/measurements
+    - Backend: `npm run dev` (development)/ `npm start` (production) (runs at http://localhost:3001/)
 
 ### How to run tests?
 - backend: `npm run test`
