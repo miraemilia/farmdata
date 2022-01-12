@@ -45,7 +45,7 @@ const AddData = ({ farms, createMeasurement }) => {
 
         <Form.Group>
           <Form.Label>Farm</Form.Label>
-          <Form.Select id='selectFarm' value={selectedFarm} onChange={handleFarmChange}>
+          <Form.Select id='selectFarm' required value={selectedFarm} onChange={handleFarmChange}>
             <option disabled />
             {farms.map(farm =>
               <option key={farm.name} value={farm.name}>{farm.name}</option>
@@ -55,12 +55,12 @@ const AddData = ({ farms, createMeasurement }) => {
 
         <Form.Group>
           <Form.Label>Date</Form.Label>
-          <Form.Control id='selectDate' type='date' value={selectedDate} onChange={handleDateChange} />
+          <Form.Control id='selectDate' required type='date' value={selectedDate} onChange={handleDateChange} />
         </Form.Group>
 
         <Form.Group>
           <Form.Label>Metric type</Form.Label>
-          <Form.Select id='selectType' value={selectedType} onChange={handleTypeChange}>
+          <Form.Select id='selectType' required value={selectedType} onChange={handleTypeChange}>
             <option disabled />
             <option value="pH">pH</option>
             <option value="rainFall">Rainfall</option>

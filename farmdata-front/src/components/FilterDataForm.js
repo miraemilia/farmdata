@@ -35,7 +35,7 @@ const FilterDataForm = ({ farms, filterAndShowData }) => {
 
       <Form.Group>
         <Form.Label>Set Farm</Form.Label>
-        <Form.Select id='selectFarmToFilter' value={farmFilter} onChange={handleFarmFilter}>
+        <Form.Select id='selectFarmToFilter' required value={farmFilter} onChange={handleFarmFilter}>
           <option disabled/>
           {farms.map(farm =>
             <option key={farm.name} value={farm.id}>{farm.name}</option>
@@ -45,7 +45,7 @@ const FilterDataForm = ({ farms, filterAndShowData }) => {
 
       <Form.Group>
         <Form.Label>Set type</Form.Label>
-        <Form.Select id='selectTypeToFilter' value={typeFilter} onChange={handleTypeFilter}>
+        <Form.Select id='selectTypeToFilter' required value={typeFilter} onChange={handleTypeFilter}>
           <option disabled/>
           <option value="pH">pH</option>
           <option value="rainFall">Rainfall</option>
@@ -55,7 +55,7 @@ const FilterDataForm = ({ farms, filterAndShowData }) => {
 
       <Form.Group>
         <Form.Label>Set month</Form.Label>
-        <Form.Control id='selectMonthToFilter' value={monthFilter} type='month' onChange={handleMonthFilter}></Form.Control>
+        <Form.Control id='selectMonthToFilter' required value={monthFilter} type='month' onChange={handleMonthFilter}></Form.Control>
       </Form.Group>
 
       <br />
