@@ -1,4 +1,4 @@
-const Measurement = require('../models/measurement')
+//const Measurement = require('../models/measurement')
 
 const farms = [
   {
@@ -53,9 +53,9 @@ const newData = [
   }
 ]
 
-const measurementsInDb = async () => {
-  const measurements = await Measurement.find({})
-  return measurements.map(m => m.toJSON)
-}
+//const measurementsInDb = async () => {
+//  const measurements = await Measurement.find({})
+//  return measurements.map(m => m.toJSON)
+//}
 
-module.exports = { farms, initialData, newData, measurementsInDb }
+module.exports = { farms, initialData, newData }

@@ -7,7 +7,7 @@ const DataTable = ({ filteredData, unit }) => {
 
   return (
     <>
-      <Table striped bordered hover size="sm">
+      <Table id='table' striped bordered hover size="sm">
         <thead>
           <tr>
             <th>Farm</th>

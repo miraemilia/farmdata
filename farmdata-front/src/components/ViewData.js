@@ -78,7 +78,7 @@ const ViewData = ({ farms }) => {
         {showTableNotChart ? 'Show data in chart' : 'Show data in table'}
       </Button>
       {showTableNotChart
-        ? <DataTable id='table' filteredData={data} unit={unit}/>
+        ? <DataTable filteredData={data} unit={unit}/>
         : <DataChart filteredData={data} unit={unit}/>
       }
     </div>

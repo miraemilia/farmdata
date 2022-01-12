@@ -28,7 +28,7 @@ const DataChart = ({ filteredData, unit }) => {
   }
 
   return (
-    <Line data = {data} options = {options}
+    <Line id='chart' data = {data} options = {options}
     />
   )
 }
