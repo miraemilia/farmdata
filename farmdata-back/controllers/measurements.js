@@ -4,48 +4,16 @@ const Farm = require('../models/farm')
 const fs = require('fs')
 const csv = require('csv-parser')
 
-const calculateStartDate = (year, month) => {
-  console.log(year, month)
-  return new Date(year, month, 1, 0, 0, 0, 0)
-}
-
-const calculateEndDate = (year, month) => {
-  console.log(year, month)
-  return new Date(year, month +1, 0, 23, 59, 59, 999)
-}
-
-const postMeasurement = async (request) => {
-  const farmName = request.body.farm
-  const farm = await Farm.findOne({name: farmName})
-  const farmId = farm._id
-
-  //create measurement from request and save to databases
-  const measurement = new Measurement({
-    farm: farmId,
-    date: request.body.date,
-    type: request.body.type,
-    value: request.body.value
-  })
-  const savedMeasurement = await measurement.save()
-
-  //add new measurement to farm
-  const updatedMeasurements = farm.measurements.concat(savedMeasurement._id)
-  await Farm.findByIdAndUpdate(farm._id, {measurements: updatedMeasurements})
-
-  return savedMeasurement
-}
-
 measurementRouter.get('/:farmId/:type/:year/:month', async (request, response) => {
   console.log(request.params.farmId + ': ' + request.params.type)
 
   //calculate start and end dates
   const year = Number(request.params.year)
   const month = Number(request.params.month)
-  console.log(year, month)
   const startDate = calculateStartDate(year, month)
-  console.log(startDate)
+  console.log('from', startDate)
   const endDate = calculateEndDate(year, month)
-  console.log(endDate)
+  console.log('to', endDate)
 
   const measurements = await Measurement
     .find({ 
@@ -57,6 +25,7 @@ measurementRouter.get('/:farmId/:type/:year/:month', async (request, response) =
       }
     })
     .populate('farm', { name: 1 })
+  console.log(measurements.length, ' measurements')
   response.json(measurements.map(m => m.toJSON()))
 })
 
@@ -74,7 +43,7 @@ measurementRouter.get('/min/:farmId/:type/:year/:month', async (request, respons
     })
     .sort({value: 1})
     .limit(1)
-  console.log(min)
+  console.log('minimum: ', min[0].value)
   response.json(min)
 })
 
@@ -92,7 +61,7 @@ measurementRouter.get('/max/:farmId/:type/:year/:month', async (request, respons
     })
     .sort({value: -1})
     .limit(1)
-  console.log(max)
+  console.log('maximum: ', max[0].value)
   response.json(max)
 })
 
@@ -110,13 +79,14 @@ measurementRouter.get('/aver/:farmId/:type/:year/:month', async (request, respon
     })
   const values = measurements.map(m => m.value)
   const aver = values.reduce((a, b) => a +b) / measurements.length
-  console.log(aver)
+  console.log('average: ', aver)
   response.json(aver)
 })
 
 measurementRouter.post('/', async (request, response) => {
   
   const savedMeasurement = await postMeasurement(request)
+  console.log(savedMeasurement)
 
   response.status(201)
   response.json(savedMeasurement.toJSON())
@@ -146,8 +116,7 @@ measurementRouter.post('/fetch', async (request, response) => {
                 value: data.value
               }
             }
-            const response = await postMeasurement(measurementRequest)
-            console.log(response)
+            await postMeasurement(measurementRequest)
           } catch (error) {
             console.log(error)
           }
@@ -162,5 +131,34 @@ measurementRouter.post('/fetch', async (request, response) => {
   })
   response.status(201)
 })
+
+const calculateStartDate = (year, month) => {
+  return new Date(year, month, 1, 0, 0, 0, 0)
+}
+
+const calculateEndDate = (year, month) => {
+  return new Date(year, month +1, 0, 23, 59, 59, 999)
+}
+
+const postMeasurement = async (request) => {
+  const farmName = request.body.farm
+  const farm = await Farm.findOne({name: farmName})
+  const farmId = farm._id
+
+  //create measurement from request and save to databases
+  const measurement = new Measurement({
+    farm: farmId,
+    date: request.body.date,
+    type: request.body.type,
+    value: request.body.value
+  })
+  const savedMeasurement = await measurement.save()
+
+  //add new measurement to farm
+  const updatedMeasurements = farm.measurements.concat(savedMeasurement._id)
+  await Farm.findByIdAndUpdate(farm._id, {measurements: updatedMeasurements})
+
+  return savedMeasurement
+}
 
 module.exports = measurementRouter
