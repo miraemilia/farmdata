@@ -3,6 +3,7 @@ Content-Type: application/json
 
 {
     "farm": "Noora's farm",
+    "date": "2022-01-07T18:33:56.486+00:00",
     "type": "rainFall",
     "value": 10
 }
