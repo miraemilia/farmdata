@@ -32,13 +32,12 @@ const ViewData = ({ farms }) => {
       setData(sortedData)
 
       const min = await dataService.getMonthlyFarmMin(farm, type, year, month)
-      console.log(min)
       setMin(min)
+
       const max = await dataService.getMonthlyFarmMax(farm, type, year, month)
-      console.log(max)
       setMax(max)
+
       const average = await dataService.getMonthlyFarmAverage(farm, type, year, month)
-      console.log(average)
       setAverage(average.toFixed(1))
 
       if (type === 'pH') {

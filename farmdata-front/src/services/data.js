@@ -2,11 +2,6 @@ import axios from 'axios'
 const baseUrlM = '/api/measurements'
 const baseUrlF = '/api/farms'
 
-//const getAll = () => {
-//  const request = axios.get(baseUrlM)
-//  return request.then(response => response.data)
-//}
-
 const getMonthlyFarmData = (farmId, type, year, month) => {
   const url = baseUrlM+'/'+farmId+'/'+type+'/'+year+'/'+month
   const request = axios.get(url)
@@ -32,7 +27,6 @@ const getMonthlyFarmAverage = (farmId, type, year, month) => {
 }
 
 const postMeasurement = newMeasurement => {
-  console.log('post called')
   return axios.post(baseUrlM, newMeasurement)
 }
 

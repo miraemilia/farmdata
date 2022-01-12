@@ -66,18 +66,13 @@ const App = () => {
   }
 
   const createMeasurement = async (measurement) => {
-    console.log(measurement)
     try {
       const response = await dataService.postMeasurement(measurement)
-      console.log(response.data)
       const newData = {
         ...response.data,
         farm: { id: response.data.farm, name: measurement.farm }
       }
       console.log(newData)
-      //const allData = data.concat(newData)
-      //const sortedData = allData.sort((a, b) => new Date(a.date) - new Date(b.date))
-      //setData(sortedData)
       setMessage('New data added')
       setMessageColor('green')
       setTimeout(() => {
