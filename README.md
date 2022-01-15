@@ -4,7 +4,16 @@
 
 This project is a pre-assignment for applying to Solita Dev Academy/spring 2022. The assignment was to create a web application that uses farm data that is fetched in CSV format.
 
-**Database structure:**
+### Features of the application
+- fetching data from files in csv format and emptying the database
+- adding new data with a form
+- input data validation
+- viewing monthly data of one metric type from a farm
+  - shows monthly minimum, maximum and average
+  - optionally a table or a graph of all values
+- tests
+
+### Database structure:
 - Farm database:
   - _id: String
   - name: String
