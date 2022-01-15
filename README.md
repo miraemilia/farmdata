@@ -59,11 +59,11 @@ This project is a pre-assignment for applying to Solita Dev Academy/spring 2022.
 - backend: 
     - fetching data from csv files is extremely slow!
     - measurement controller: start and end date according to UTC?
-    - handling exceptions
+    - improving handling exceptions
 - frontend
     - useState is not updated if database is modified
     - AddData component: select time when adding farm data 
-    - error handling and error messages, e.g. required fields in forms or missing data
+    - improving error handling and error messages
     - usability and visual look
 
 ### What next?
