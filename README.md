@@ -40,7 +40,7 @@ This project is a pre-assignment for applying to Solita Dev Academy/spring 2022.
 - for the database connection to work, a .env file is needed at the root of the backend folder (provided privately if necessary)
 
 ## How to run the project?
-- copy the project
+- clone the project
 - add a file named .env (see Configurations)
 - terminal commands (at the root of the corresponding file)
     - Frontend: `npm start` (runs at http://localhost:3000/)
