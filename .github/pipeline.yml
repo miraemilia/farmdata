@@ -1,0 +1,33 @@
+name: Pipeline
+
+on:
+  push:
+    branches:
+      -master
+
+jobs:
+  tests_and_lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install npm - back
+        working-directory: /farmdata-back
+        run: npm install
+      - name: Install npm - front
+        working-directory: /farmdata-front
+        run: npm install
+      - name: Lint back
+        working-directory: /farmdata-back
+        run: npm run lint
+      - name: Lint front
+        working-directory: /farmdata-front
+        run: npm run lint
+      - name: Test back
+        working-directory: /farmdata-back
+        run: npm run test
+      - name: Test front
+        working-directory: /farmdata-front
+        run: CI=true npm test
