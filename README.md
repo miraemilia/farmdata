@@ -42,6 +42,7 @@ This project is a pre-assignment for applying to Solita Dev Academy/spring 2022.
 ## How to run the project?
 - clone the project
 - add a file named .env (see Configurations)
+- run `npm install`
 - terminal commands (at the root of the corresponding file)
     - Frontend: `npm start` (runs at http://localhost:3000/)
     - Backend: `npm run dev` (development)/ `npm start` (production) (runs at http://localhost:3001/)
