@@ -35,10 +35,10 @@ jobs:
         run: CI=true npm test
       - name: E2E testing
         uses: cypress-io/github-action@v2
+        env: 
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          PORT: 3001        
         with:
-          env: 
-            TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
-            PORT: 3001
           command: npx cypress run
           working-directory: ./farmdata-front
           start: npm start, (cd ./farmdata-back && npm run start:test)
