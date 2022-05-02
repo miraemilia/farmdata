@@ -14,20 +14,20 @@ jobs:
         with:
           node-version: '16'
       - name: Install npm - back
-        working-directory: /farmdata-back
+        working-directory: ./farmdata-back
         run: npm install
       - name: Install npm - front
-        working-directory: /farmdata-front
+        working-directory: ./farmdata-front
         run: npm install
       - name: Lint back
-        working-directory: /farmdata-back
+        working-directory: ./farmdata-back
         run: npm run lint
       - name: Lint front
-        working-directory: /farmdata-front
+        working-directory: ./farmdata-front
         run: npm run lint
       - name: Test back
-        working-directory: /farmdata-back
+        working-directory: ./farmdata-back
         run: npm run test
       - name: Test front
-        working-directory: /farmdata-front
+        working-directory: ./farmdata-front
         run: CI=true npm test
