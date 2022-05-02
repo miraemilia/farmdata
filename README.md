@@ -12,6 +12,7 @@ This project is a pre-assignment for applying to Solita Dev Academy/spring 2022.
   - shows monthly minimum, maximum and average
   - optionally a table or a graph of all values
 - tests
+- Github Actions for linting and running tests
 
 ### Database structure:
 - Farm database:
