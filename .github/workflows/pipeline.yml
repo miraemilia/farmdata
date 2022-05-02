@@ -42,4 +42,4 @@ jobs:
           command: npx cypress run
           working-directory: ./farmdata-front
           start: npm start, (cd ./farmdata-back && npm run start:test)
-          wait-on: http://localhost:3000
+          wait-on: http://localhost:3001
