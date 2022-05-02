@@ -33,15 +33,13 @@ jobs:
       - name: Test front
         working-directory: ./farmdata-front
         run: CI=true npm test
-      - name: Run backend in testing
-        working-directory: ./farmdata-back
-        env: 
-          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
-        run: npm run start:test
       - name: E2E testing
         uses: cypress-io/github-action@v2
         with:
+          env: 
+            TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+            PORT: 3001
           command: npx cypress run
           working-directory: ./farmdata-front
-          start: npm start
+          start: npm start, (cd ./farmdata-back && npm run start:test)
           wait-on: http://localhost:3000
